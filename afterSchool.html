@@ -15,15 +15,14 @@
 <body>
     <div id="app">
         <header>
-            <h1 v-text="sitename"></h1>
+            <h1 v-text="sitename" id="sitename"></h1>
+            <p v-on:click="showCheckout" id="checkoutBtn">
+                {{cartItemCount}}
+                <span class="fas fa-cart-plus"></span>
+            </p>
         </header>
 
         <main>
-
-            <button v-on:click="showCheckout" id="checkoutBtn">
-                {{cartItemCount}}
-                <span class="fas fa-cart-plus"></span> Checkout
-            </button>
 
             <div v-if="showProduct">
                 <div v-for="product in products">
@@ -65,6 +64,22 @@
                 addToCart(product) {
                     this.cart.push(product.id);
                     product.availableInventory--;
+                },
+                showCheckout() {
+                    this.showProduct = this.showProduct ? false : true;
+                },
+                canAddToCart(product) {
+                    //return product.availableInventory > this.cartCount(product.id);
+                    return product.cartInventory > this.cartCount(product.id);
+                },
+                cartCount(id) {
+                    let count = 0;
+                    for (let i = 0; i < this.cart.length; i++) {
+                        if (this.cart[i] == id) {
+                            count++;
+                        }
+                    }
+                    return count;
                 }
             },
             computed: {
