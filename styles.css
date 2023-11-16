@@ -29,7 +29,7 @@ header{
 #container{
     display: flex;
     width: 100%;
-    margin-top: 1%;
+    margin-top: 3%;
     flex-wrap: wrap;
 }
 
@@ -123,3 +123,29 @@ header{
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* css for footer */
+footer {
+    position: absolute;
+    overflow: hidden;
+    text-align: center;
+    color: whitesmoke;
+    background-color: #65471f;
+    width: 100%;
+    margin-top: 3%;
+}
+    
