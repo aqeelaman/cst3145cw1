@@ -25,28 +25,58 @@
         <main>
 
             <div v-if="showProduct">
-                <div v-for="product in products">
-                    <figure>
-                        <img v-bind:src="product.image">
-                    </figure>
-                    <h2 v-text="product.title"></h2>
-                    <p>Price: {{product.price}}</p>
-                    <!-- <p>Availability: {{product.availableInventory - cartItemCount}}</p> -->
-                    <p>Availability: {{product.availableInventory}}</p>
-                    <button v-on:click="addToCart(product)" v-if="canAddToCart(product)">
-                        Add To Cart</button>
-                    <button disabled='disabled' v-else>
-                        Add To Cart</button>
-                    <span v-if="product.cartInventory === cartItemCount"> All Out!</span>
-                    <span v-else-if="product.availableInventory < 5 "> Only {{product.availableInventory}} left!</span>
-                    <span v-else>Buy Now!</span>
-                    
+                <div id="container">
+
+                    <div id="sideContainer">
+                        <p>Search:</p>
+                        <input type="search" placeholder="Search">
+                        <br>
+
+                        <p>Sort By:</p>
+                        <input type="radio" id="class" name="sortby">
+                        <label for="class">Class</label>
+                        <input type="radio" id="location" name="sortby">
+                        <label for="location">Location</label>
+                        <input type="radio" id="price" name="sortby">
+                        <label for="price">Price</label>
+                        <input type="radio" id="availability" name="sortby">
+                        <label for="class">Availability</label>
+                        <br>
+
+                        <p>Order By:</p>
+                        <input type="radio" id="ascending" name="orderby" checked>
+                        <label for="ascending">Ascending</label>
+                        <input type="radio" id="descending" name="orderby">
+                        <label for="descending">Descending</label>
+                    </div>
+
+                    <div id="productContainer">
+                        <div id="productCard" v-for="product in products">
+                            <figure>
+                                <img v-bind:src="product.image">
+                            </figure>
+                            <h2 v-text="product.title"></h2>
+                            <p>Location: {{product.location}}</p>
+                            <p>Price: AED{{product.price}}</p>
+                            <!-- <p>Availability: {{product.availableInventory - cartItemCount}}</p> -->
+                            <p>Availability: {{product.availableInventory}}</p>
+                            <button v-on:click="addToCart(product)" v-if="canAddToCart(product)">
+                                Add To Cart</button>
+                            <button disabled='disabled' v-else>
+                                Add To Cart</button>
+                            <br>
+                            <span v-if="product.cartInventory === cartCount(product.id)"> All Out!</span>
+                            <span v-else-if="product.availableInventory < 5 "> Only {{product.availableInventory}}
+                                left!</span>
+                            <span v-else>Buy Now!</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div v-else>
                 <h2>Checkout</h2>
-                
+
             </div>
 
         </main>

@@ -11,7 +11,7 @@ let products =[
     {
         id: 1002,
         title: "Basketball",
-        location:"AL Barsha 2",
+        location:"Al Barsha 2",
         price: 200,
         image: "",
         availableInventory: 19,
