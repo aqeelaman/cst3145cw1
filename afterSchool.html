@@ -1,11 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>After School Classes</title>
+
+    <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+    <script src="products.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    
+    <div id="app">
+        <header>
+            <h1 v-text="sitename"></h1>
+        </header>
+
+        <main>
+
+            <button v-on:click="showCheckout" id="checkoutBtn">
+                {{cartItemCount}}
+                <span class="fas fa-cart-plus"></span> Checkout
+            </button>
+
+            <div v-if="showProduct">
+                <div v-for="product in products">
+                    <figure>
+                        <img v-bind:src="product.image">
+                    </figure>
+                    <h2 v-text="product.title"></h2>
+                    <p>Price: {{product.price}}</p>
+                    <!-- <p>Availability: {{product.availableInventory - cartItemCount}}</p> -->
+                    <p>Availability: {{product.availableInventory}}</p>
+                    <button v-on:click="addToCart(product)" v-if="canAddToCart(product)">
+                        Add To Cart</button>
+                    <button disabled='disabled' v-else>
+                        Add To Cart</button>
+                    <span v-if="product.cartInventory === cartItemCount"> All Out!</span>
+                    <span v-else-if="product.availableInventory < 5 "> Only {{product.availableInventory}} left!</span>
+                    <span v-else>Buy Now!</span>
+                    
+                </div>
+            </div>
+
+            <div v-else>
+                <h2>Checkout</h2>
+                
+            </div>
+
+        </main>
+    </div>
+    <script type="text/javascript">
+        var webstore = new Vue({
+            el: '#app', // <=== Don't forget this comma
+            data: {
+                showProduct: true,
+                sitename: "After School Classes",
+                products: products,
+                cart: []
+            },
+            methods: {
+                addToCart(product) {
+                    this.cart.push(product.id);
+                    product.availableInventory--;
+                }
+            },
+            computed: {
+                cartItemCount: function () {
+                    return this.cart.length || "";
+                }
+            }
+        });
+    </script>
 </body>
+
 </html>
