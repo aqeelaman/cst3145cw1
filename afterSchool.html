@@ -29,29 +29,29 @@
 
                     <div id="sideContainer">
                         <p>Search:</p>
-                        <input id="searchbar" type="search" placeholder="Search" v-on:keyup="search()">
+                        <input id="searchbar" type="search" placeholder="Search" v-model="searchResult">
                         <br>
 
                         <p>Sort By:</p>
-                        <input type="radio" id="class" name="sortby">
+                        <input type="radio" id="class" value="class" v-model="sortby" >
                         <label for="class">Class</label>
-                        <input type="radio" id="location" name="sortby">
+                        <input type="radio" id="location" value="location" v-model="sortby">
                         <label for="location">Location</label>
-                        <input type="radio" id="price" name="sortby">
+                        <input type="radio" id="price" value="price" v-model="sortby">
                         <label for="price">Price</label>
-                        <input type="radio" id="availability" name="sortby">
+                        <input type="radio" id="availability" value="availability" v-model="sortby">
                         <label for="class">Availability</label>
                         <br>
 
                         <p>Order By:</p>
-                        <input type="radio" id="ascending" name="orderby" checked>
+                        <input type="radio" id="ascending" value="ascending" v-model="orderby" checked>
                         <label for="ascending">Ascending</label>
-                        <input type="radio" id="descending" name="orderby">
+                        <input type="radio" id="descending" value="descending" v-model="orderby">
                         <label for="descending">Descending</label>
                     </div>
 
                     <div id="productContainer">
-                        <div id="productCard" v-for="product in products">
+                        <div id="productCard" v-for="product in sortedProducts">
                             <figure>
                                 <img v-bind:src="product.image">
                             </figure>
@@ -94,7 +94,10 @@
                 showProduct: true,
                 sitename: "After School Classes",
                 products: products,
-                cart: []
+                cart: [],
+                searchResult: "",
+                sortby: "",
+                orderby: ""
             },
             methods: {
                 addToCart(product) {
@@ -116,28 +119,7 @@
                         }
                     }
                     return count;
-                },
-                search(){
-                    let searchResult = document.getElementById("searchbar").value;
                 }
-                // search: function(){
-                //     let searchResult = document.getElementById("searchbar").value;
-                //     searchProducts(searchResult);
-                // }
-                // searchProducts() {
-                //     let searchResult = document.getElementById("searchbar").value;
-                //     // let searchResult = "";
-                //     // searchbar.onkeyup=()=>{
-                //     //     searchResult=searchbar.value;
-                //     console.log(searchResult);
-                //     // }
-                //     let productsArray = this.sortedProducts.slice(0);
-                //     productsArray.forEach(product => {
-                //         if (product.title == searchResult) {
-                //             console.log(product);
-                //         }
-                //     });
-                // }
             },
             computed: {
                 cartItemCount: function () {
@@ -145,22 +127,27 @@
                 },
                 sortedProducts: function () {
                     let productsArray = this.products.slice(0);
-                    function compare(a, b) {
-                        if (a.price > b.price) {
-                            return 1;
+
+                    if (this.sortby == "price" && this.orderby == "ascending") {
+                        function compare(a, b) {
+                            if (a.price > b.price) {
+                                return 1;
+                            }
+                            if (a.price < b.price) {
+                                return -1;
+                            }
+                            return 0;
                         }
-                        if (a.price < b.price) {
-                            return -1;
-                        }
-                        return 0;
+                        return productsArray.sort(compare);
                     }
 
-                    productsArray.filter((product) =>
-                        product.title.toLowerCase().includes(document.getElementById("searchbar").value.toLowerCase())
-                        || product.location.toLowerCase().includes(document.getElementById("searchbar").value.toLowerCase())
+
+                    productsArray = productsArray.filter((product) =>
+                        product.title.toLowerCase().includes(this.searchResult.toLowerCase())
+                        || product.location.toLowerCase().includes(this.searchResult.toLowerCase())
                     );
                     console.log(document.getElementById("searchbar").value);
-    
+
 
 
                     return productsArray.sort(compare);

@@ -45,6 +45,7 @@ header{
     background-color: rgb(204, 202, 202);
     border-radius: 10px;
     box-shadow: 0 1px 5px 0 black;
+    padding-bottom: 2%;
 }
 
 
@@ -53,14 +54,14 @@ header{
     padding-left: 15%;
     font-size: 25px;
     font-weight: bold;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
 }
 
 /* css for input buttons in sidebar */
 #sideContainer input{
     vertical-align: middle;
     position: relative;
-    margin-bottom: -9%;
+    margin-bottom: -11%;
     margin-left: 15%; 
 }
 
@@ -140,7 +141,8 @@ header{
 
 /* css for footer */
 footer {
-    position: absolute;
+    position: relative;
+    bottom:0%;
     overflow: hidden;
     text-align: center;
     color: whitesmoke;
