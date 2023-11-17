@@ -48,7 +48,7 @@
                         <br>
 
                         <p>Order By:</p>
-                        <input type="radio" id="ascending" value="ascending" v-model="orderby" checked>
+                        <input type="radio" id="ascending" value="ascending" v-model="orderby" >
                         <label for="ascending">Ascending</label>
                         <input type="radio" id="descending" value="descending" v-model="orderby">
                         <label for="descending">Descending</label>
@@ -62,7 +62,6 @@
                             <h2 v-text="product.title"></h2>
                             <p>Location: {{product.location}}</p>
                             <p>Price: AED{{product.price}}</p>
-                            <!-- <p>Availability: {{product.availableInventory - cartItemCount}}</p> -->
                             <p>Availability: {{product.availableInventory}}</p>
                             <button v-on:click="addToCart(product)" v-if="canAddToCart(product)">
                                 Add To Cart</button>
@@ -101,7 +100,7 @@
                 cart: [],
                 searchResult: "",
                 sortby: "",
-                orderby: ""
+                orderby: "ascending"
             },
             methods: {
                 addToCart(product) {
@@ -112,7 +111,6 @@
                     this.showProduct = this.showProduct ? false : true;
                 },
                 canAddToCart(product) {
-                    //return product.availableInventory > this.cartCount(product.id);
                     return product.cartInventory > this.cartCount(product.id);
                 },
                 cartCount(id) {
@@ -131,6 +129,12 @@
                 },
                 sortedProducts: function () {
                     let productsArray = this.products.slice(0);
+                    
+                    
+                    productsArray = productsArray.filter((product) =>
+                        product.title.toLowerCase().includes(this.searchResult.toLowerCase().trim())
+                        || product.location.toLowerCase().includes(this.searchResult.toLowerCase().trim())
+                    );
 
                     if (this.sortby == "price" && this.orderby == "ascending") {
                         function compare(a, b) {
@@ -208,11 +212,6 @@
                         }
                         return productsArray.sort(compare);
                     }
-
-                    productsArray = productsArray.filter((product) =>
-                        product.title.toLowerCase().includes(this.searchResult.toLowerCase().trim())
-                        || product.location.toLowerCase().includes(this.searchResult.toLowerCase().trim())
-                    );
 
                     return productsArray;
 
