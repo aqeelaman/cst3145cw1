@@ -16,7 +16,11 @@
     <div id="app">
         <header>
             <h1 v-text="sitename" id="sitename"></h1>
-            <p v-on:click="showCheckout" id="checkoutBtn">
+            <p v-if='cartItemCount==""' disabled="disabled" id="checkoutBtn" style="opacity: 0.5;">
+                {{cartItemCount}}
+                <span class="fas fa-cart-plus"></span>
+            </p>
+            <p v-else v-on:click="showCheckout"id="checkoutBtn"  >
                 {{cartItemCount}}
                 <span class="fas fa-cart-plus"></span>
             </p>
@@ -130,27 +134,88 @@
 
                     if (this.sortby == "price" && this.orderby == "ascending") {
                         function compare(a, b) {
-                            if (a.price > b.price) {
-                                return 1;
-                            }
-                            if (a.price < b.price) {
-                                return -1;
-                            }
+                            if (a.price > b.price) return 1;
+                            if (a.price < b.price) return -1;
+                            return 0;
+                        }
+                        return productsArray.sort(compare);
+                    }
+
+                    if (this.sortby == "price" && this.orderby == "descending") {
+                        function compare(a, b) {
+                            if (a.price < b.price) return 1;
+                            if (a.price > b.price) return -1;
                             return 0;
                         }
                         return productsArray.sort(compare);
                     }
 
 
+
+                    if (this.sortby == "class" && this.orderby == "ascending") {
+                        function compare(a, b) {
+                            if (a.title > b.title) return 1;
+                            if (a.title < b.title) return -1;
+                            return 0;
+                        }
+                        return productsArray.sort(compare);
+                    }
+
+                    if (this.sortby == "class" && this.orderby == "descending") {
+                        function compare(a, b) {
+                            if (a.title < b.title) return 1;
+                            if (a.title > b.title) return -1;
+                            return 0;
+                        }
+                        return productsArray.sort(compare);
+                    }
+
+
+                    if (this.sortby == "availability" && this.orderby == "ascending") {
+                        function compare(a, b) {
+                            if (a.availableInventory > b.availableInventory) return 1;
+                            if (a.availableInventory < b.availableInventory) return -1;
+                            return 0;
+                        }
+                        return productsArray.sort(compare);
+                    }
+
+                    if (this.sortby == "availability" && this.orderby == "descending") {
+                        function compare(a, b) {
+                            if (a.availableInventory < b.availableInventory) return 1;
+                            if (a.availableInventory > b.availableInventory) return -1;
+                            return 0;
+                        }
+                        return productsArray.sort(compare);
+                    }
+
+
+
+                    if (this.sortby == "location" && this.orderby == "ascending") {
+                        function compare(a, b) {
+                            if (a.location > b.location) return 1;
+                            if (a.location < b.location) return -1;
+                            return 0;
+                        }
+                        return productsArray.sort(compare);
+                    }
+
+                    if (this.sortby == "location" && this.orderby == "descending") {
+                        function compare(a, b) {
+                            if (a.location < b.location) return 1;
+                            if (a.location > b.location) return -1;
+                            return 0;
+                        }
+                        return productsArray.sort(compare);
+                    }
+
                     productsArray = productsArray.filter((product) =>
-                        product.title.toLowerCase().includes(this.searchResult.toLowerCase())
-                        || product.location.toLowerCase().includes(this.searchResult.toLowerCase())
+                        product.title.toLowerCase().includes(this.searchResult.toLowerCase().trim())
+                        || product.location.toLowerCase().includes(this.searchResult.toLowerCase().trim())
                     );
-                    console.log(document.getElementById("searchbar").value);
 
+                    return productsArray;
 
-
-                    return productsArray.sort(compare);
                 }
             }
         });
