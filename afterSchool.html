@@ -29,7 +29,7 @@
         <main>
 
             <div v-if="showProduct">
-                <div id="container">
+                <div id="mainProductContainer">
 
                     <div id="sideContainer">
                         <p>Search:</p>
@@ -107,10 +107,11 @@
                         <strong>Phone:</strong>
                         <input type="number" v-model="order.phone" />
                     </p>
+                    <br><br><br>
 
 
 
-                    <h2>Order Information</h2>
+                    <h1>Order Information</h1>
                     <p>Name: {{order.name}}</p>
                     <p>Phone: {{order.phone}}</p>
 
@@ -121,8 +122,8 @@
                 </div>
             </div>
 
-            <div v-else>
-                <h2>Cart</h2>
+            <div v-else style="text-align: center;">
+                <h1 style="font-size: 35px;">Cart</h1>
                 <p>No items left in cart!</p>
             </div>
 
