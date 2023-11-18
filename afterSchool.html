@@ -77,54 +77,59 @@
                 </div>
             </div>
 
-            <div v-else>
-                <h2>Cart</h2>
-                <div id="cartContainer" v-for="id in cart">
-                    <div id="productCard" v-for="product in products" v-if="product.id==id">
-                        <figure>
-                            <img v-bind:src="product.image">
-                        </figure>
-                        <h2 v-text="product.title"></h2>
-                        <p>Location: {{product.location}}</p>
-                        <p>Price: AED{{product.price}}</p>
-                        <button v-on:click="removeFromCart(product)">
-                            Remove Item</button>
-                        <br>
+            <div v-else-if="cartItemCount>0" id="cartCheckout">
+                <h1>Cart</h1>
+                <div id="cartContainer">
+                    <div id="cartCardContainer" v-for="id in cart">
+                        <div id="productCard" v-for="product in products" v-if="product.id==id">
+                            <figure>
+                                <img v-bind:src="product.image">
+                            </figure>
+                            <h2 v-text="product.title"></h2>
+                            <p>Location: {{product.location}}</p>
+                            <p>Price: AED{{product.price}}</p>
+                            <button v-on:click="removeFromCart(product)">
+                                Remove Item</button>
+                            <br>
+                        </div>
                     </div>
                 </div>
 
 
-                <h2>Checkout</h2>
+                <div id="checkoutContainer">
+                    <h1>Checkout</h1>
 
-                <p>
-                    <strong>Name:</strong>
-                    <input v-model.trim="order.name" />
-                </p>
-                <p>
-                    <strong>Phone:</strong>
-                    <input type="number" v-model.trim="order.phone" />
-                </p>
+                    <p>
+                        <strong>Name:</strong>
+                        <input v-model.trim="order.name" />
+                    </p>
+                    <p>
+                        <strong>Phone:</strong>
+                        <input type="number" v-model="order.phone" />
+                    </p>
 
 
 
-                <h2>Order Information</h2>
-                <p>Name: {{order.name}}</p>
-                <p>Phone: {{order.phone}}</p>
+                    <h2>Order Information</h2>
+                    <p>Name: {{order.name}}</p>
+                    <p>Phone: {{order.phone}}</p>
 
-                <button v-if="validateInput" v-on:click="submitForm">
-                    Place Order</button>
-                <button  disabled='disabled' v-else>
-                    Place Order</button>
+                    <button v-if="validateInput" v-on:click="submitForm">
+                        Place Order</button>
+                    <button v-else disabled='disabled'>
+                        Place Order</button>
+                </div>
+            </div>
 
+            <div v-else>
+                <h2>Cart</h2>
+                <p>No items left in cart!</p>
             </div>
 
         </main>
     </div>
 
-    <!-- footer -->
-    <footer>
-        <p>©️ Aqeel Ali M00850498 - All Rights Reserved</p>
-    </footer>
+
 
     <script type="text/javascript">
         var webstore = new Vue({
@@ -171,16 +176,6 @@
                 },
                 submitForm() {
                     alert('Order submitted!')
-                },
-                validateInput() {
-
-                    var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
-                    var regNumber = /^[1-9]$/;
-
-                    if (regName.test(this.order.name) && regNumber.test(this.order.phone)) {
-                        return true;
-                    }
-                    return false;
                 }
 
             },
@@ -277,6 +272,22 @@
                     return productsArray;
 
                 },
+                validateInput() {
+
+                    var regName = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/g;
+                    var regNumber = /^[0-9]*$/g;
+
+                    //console.log("name:" + regName.test(this.order.name));
+                    //console.log("number:" + regNumber.test(this.order.phone) + " number:" + this.order.phone)
+
+                    if (this.order.name != "" && this.order.phone != "") {
+                        console.log("check1");
+                        if (regName.test(this.order.name) && regNumber.test(this.order.phone)) {
+                            return true;
+                        }
+                    };
+                    return false;
+                }
 
             }
         });
