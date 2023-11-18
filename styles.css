@@ -123,6 +123,20 @@ header{
     margin-bottom: 12px;
 }
 
+#cartCheckout h1{
+    font-size: 35px;
+    text-align: center;
+}
 
+#cartContainer{
+    display: block;
+    width: 100%;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#checkoutContainer{
+    text-align: center;
+}
 
 
