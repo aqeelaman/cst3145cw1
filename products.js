@@ -4,7 +4,7 @@ let products =[
         title: "Football",
         location:"Al Nahda",
         price: 400,
-        image: "../images/football.png",
+        image: "images/football.png",
         availableInventory:5,
         cartInventory:5
     },
@@ -13,7 +13,7 @@ let products =[
         title: "Basketball",
         location:"Al Barsha 2",
         price: 200,
-        image: "../images/basketball.png",
+        image: "images/basketball.png",
         availableInventory:5,
         cartInventory:5
     },
@@ -22,7 +22,7 @@ let products =[
         title: "Swimming",
         location:"Karama",
         price: 160,
-        image: "../images/swimming.png",
+        image: "images/swimming.png",
         availableInventory:5,        
         cartInventory:5
         },
@@ -31,7 +31,7 @@ let products =[
         title: "Tennis",
         location:"Oud Metha",
         price: 175,
-        image: "../images/tennis.png",
+        image: "images/tennis.png",
         availableInventory:5,        
         cartInventory:5
         },
@@ -40,7 +40,7 @@ let products =[
         title: "Badminton",
         location:"Deira",
         price: 210,
-        image: "../images/badminton.png",
+        image: "images/badminton.png",
         availableInventory:5,
         cartInventory:5
     },
@@ -49,7 +49,7 @@ let products =[
         title: "Art & Craft",
         location:"Al Qusais 2",
         price: 340,
-        image: "../images/art.png",
+        image: "images/art.png",
         availableInventory:5,
         cartInventory:5
     },
@@ -58,7 +58,7 @@ let products =[
         title: "Coding",
         location:"Bur Dubai",
         price: 290,
-        image: "../images/coding.png",
+        image: "images/coding.png",
         availableInventory:5,
         cartInventory:5
     },
@@ -67,7 +67,7 @@ let products =[
         title: "Mathematics",
         location:"Discovery Gardens",
         price: 360,
-        image: "../images/mathematics.png",
+        image: "images/mathematics.png",
         availableInventory:5,
         cartInventory:5
     },
@@ -76,7 +76,7 @@ let products =[
         title: "Dance",
         location:"Mirdif",
         price: 220,
-        image: "../images/dance.png",
+        image: "images/dance.png",
         availableInventory:5,
         cartInventory:5
     },
@@ -85,7 +85,7 @@ let products =[
         title: "Cricket",
         location:"Al Warqa 2",
         price: 320,
-        image: "../images/cricket.png",
+        image: "images/cricket.png",
         availableInventory:5,        
         cartInventory:5
         }
